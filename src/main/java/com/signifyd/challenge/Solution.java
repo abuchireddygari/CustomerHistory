@@ -30,20 +30,16 @@ public class Solution {
             String customer = record.get(1);
             String status = record.get(2);
 
+            CustomerHistory ch = customerList.get(customer);
+            if(ch == null) { //New customer
+                ch = new CustomerHistory(customer);
+                customerList.put(customer,ch);
+            }
+
             if (status.equals("PURCHASE")) {
-                CustomerHistory ch = customerList.get(customer);
-                if(ch == null) { //New customer
-                    ch = new CustomerHistory(customer);
-                    customerList.put(customer,ch);
-                }
                 ch.enterPurchase(date);
                 System.out.println(date + "," + customer + "," + ch.getStatus());
             } else if (status.equals("FRAUD_REPORT")) {
-                CustomerHistory ch = customerList.get(customer);
-                if(ch == null) { //New customer
-                    ch = new CustomerHistory(customer);
-                    customerList.put(customer,ch);
-                }
                 ch.enterFraudReport(date);
             } else {
                 System.out.println("BAD REPORT: " + status);
